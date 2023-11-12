@@ -1,0 +1,86 @@
+@import "variables";
+
+
+@mixin text($size, $font-weight, $color) {
+  font-family: $mainFont;
+  font-size: $size;
+  font-weight: $font-weight;
+  color: $color;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+@mixin field($border, $bg, $color) {
+  margin-bottom: 20px;
+
+  & label {
+    @include text(1.2rem, normal, $titleText);
+
+    @media (max-width: 660px){
+      @include text(1rem, normal, $titleText);
+    }
+
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+
+  & input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 90%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid $border;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    background: $bg;
+    color: $color;
+    font-family: $mainFont;
+    font-size: 0.9rem;
+    font-weight: normal;
+  }
+
+  & textarea {
+    resize: vertical;
+  }
+}
+
+@mixin button() {
+  & button {
+    background-color: $titleText;
+    color: $mainText;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  }
+
+  & button:hover {
+    background-color: $mainBg;
+    color: $titleText;
+  }
+
+  & button:active {
+    background-color: $mainBg;
+    color: $mainText;
+    box-shadow: none;
+  }
+
+  & button:disabled {
+    background-color: $secondaryBg;
+    color: $mainText;
+    box-shadow: none;
+  }
+
+}
+
+@mixin serverMsg($color) {
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  font-size: 1.5rem;
+  color: $color;
+}

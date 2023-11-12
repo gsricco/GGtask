@@ -1,0 +1,36 @@
+@import "src/common/styles/sass/mixins";
+
+
+.formContainer {
+  background-color: $secondaryBg;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  width: 30vw;
+
+  & h2 {
+    @include text(1.4rem, bold, $titleText);
+    text-align: center;
+    margin-bottom: 20px;
+    @media (max-width: 660px){
+      @include text(1rem, bold, $titleText);
+    }
+  }
+
+  .formItem {
+    @include field($mainBg, $mainBg, $mainText)
+
+  }
+
+  .formItemError{
+    @include field($titleText, $titleText, $mainText);
+    .error{
+      color:$titleText;
+      font-size: 0.8rem;
+    }
+
+  }
+
+  @include button();
+
+}

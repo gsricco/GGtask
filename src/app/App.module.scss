@@ -1,0 +1,29 @@
+@import "src/common/styles/sass/mixins";
+
+.App {
+  background-color: $mainBg;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  margin: 0;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+
+  .header {
+    @include text(2.4rem, bold, $titleText);
+
+    width: 100vw;
+    text-align: center;
+    margin: 20px;
+    text-transform: uppercase;
+
+    @media (max-width: 660px){
+      @include text(1.4rem, bold, $titleText);
+    }
+
+    @include button();
+  }
+
+
+}
