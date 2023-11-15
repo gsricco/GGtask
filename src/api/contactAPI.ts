@@ -5,7 +5,7 @@ import {FormResponse, IFormData} from "../common/types/types";
 
 export async function sendFormData(formData: IFormData): Promise<FormResponse> {
   try {
-    const response: AxiosResponse<FormResponse> = await axios.post('http://localhost:9090/api/registration', formData);
+    const response: AxiosResponse<FormResponse> = await axios.post('https://g-gtask.vercel.app/api/registration', formData);
 
     if (response.data.status === 'success') {
       return response.data;

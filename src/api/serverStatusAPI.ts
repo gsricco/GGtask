@@ -7,7 +7,7 @@ interface PingResponse {
 
 export async function pingServer(): Promise<PingResponse> {
   try {
-    const response: AxiosResponse<PingResponse> = await axios.get('http://localhost:9090/api/ping');
+    const response: AxiosResponse<PingResponse> = await axios.get('https://g-gtask.vercel.app/api/ping');
     if (response.data.status === 'success') {
       return response.data;
     } else {
