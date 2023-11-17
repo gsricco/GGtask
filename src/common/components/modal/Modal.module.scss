@@ -13,8 +13,6 @@
 .container {
 
   .modal {
-    //max-width: 500px;
-    //max-height: 400px;
     width: 50vw;
     height: 40vh;
     position: absolute;
@@ -45,11 +43,25 @@
       top: 10px;
       left: 98%;
       transform: translate(-98%);
+      @media (max-width: 768px){
+        width:1rem;
+      }
+      @media (max-width: 360px){
+        width:0.6rem;
+      }
     }
 
     & h1 {
       @include text(1rem, bold, $titleText);
       text-transform: uppercase;
+
+      @media (max-width: 768px){
+        @include text(0.8rem, bold, $titleText);
+      }
+      @media (max-width: 260px){
+        padding-top: 5px;
+        @include text(0.5rem, bold, $titleText);
+      }
     }
 
     .message {

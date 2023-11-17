@@ -27,7 +27,7 @@ export const ContactForm = () => {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
   const [err, setErr] = useState(false)
-
+  const [queuedFormatData, setQueuedFormatData] = useState<IFormData[]>([])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value});
@@ -35,25 +35,44 @@ export const ContactForm = () => {
 
 
   const handleOfflineSubmit = () => {
-    localStorage.setItem('queuedFormData', JSON.stringify(formData));
+    const queuedData = localStorage.getItem('queuedFormData');
+    const newQueuedData = [...(queuedData ? JSON.parse(queuedData) : []), formData];
+
+    localStorage.setItem('queuedFormData', JSON.stringify(newQueuedData));
+    setQueuedFormatData((prevQueuedFormatData) => [
+      ...prevQueuedFormatData, formData
+    ]);
     setMessage('Отправка формы в ожидание. Данные будут отправлены, когда сервер снова станет доступен.');
+
+    sendQueuedData()
   };
 
 
-  const sendQueuedData = async (text?:string) => {
+  const sendQueuedData = async () => {
     try {
       const queuedData = localStorage.getItem('queuedFormData');
       if (queuedData) {
-        const formData = JSON.parse(queuedData);
-        await sendFormData(formData);
+        const formDataArray: IFormData[] = JSON.parse(queuedData);
+
+        for (const formData of formDataArray) {
+          await sendFormData(formData);
+          setQueuedFormatData((prevQueuedFormatData) =>
+            prevQueuedFormatData.filter((data) => !deepEqual(data, formData))
+          );
+        }
+
         localStorage.removeItem('queuedFormData');
-        setMessage(`Отправка отложенных данных. ${text}`);
+        setMessage('Все отложенные данные успешно отправлены.');
       }
     } catch (error) {
       console.error('Ошибка при отправке отложенных данных:', error);
     }
   };
 
+
+  function deepEqual(obj1: any, obj2: any) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +90,7 @@ export const ContactForm = () => {
           phone: "",
           message: "",
         });
-        sendQueuedData(data.message)
+        sendQueuedData()
       } catch (error) {
         setOpen(true);
         setMessage(String(error));
@@ -93,8 +112,7 @@ export const ContactForm = () => {
 
   };
   useEffect(() => {
-
-   if ( localStorage.getItem('queuedFormData')) sendQueuedData();
+    if (localStorage.getItem('queuedFormData')) sendQueuedData();
   }, []);
 
   return (

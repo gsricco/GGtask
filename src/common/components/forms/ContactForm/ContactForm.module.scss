@@ -2,17 +2,23 @@
 
 
 .formContainer {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
   background-color: $secondaryBg;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
   width: 30vw;
+  @media (max-width: 768px){
+    width: 80vw;
+  }
 
   & h2 {
     @include text(1.4rem, bold, $titleText);
     text-align: center;
     margin-bottom: 20px;
-    @media (max-width: 660px){
+    @media (max-width: 768px){
       @include text(1rem, bold, $titleText);
     }
   }

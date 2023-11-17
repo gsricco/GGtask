@@ -11,18 +11,34 @@
   padding-bottom: 4rem;
 
   .header {
-    @include text(2.4rem, bold, $titleText);
 
+
+    @include text(2.4rem, bold, $titleText);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100vw;
     text-align: center;
     margin: 20px;
     text-transform: uppercase;
-
-    @media (max-width: 660px){
-      @include text(1.4rem, bold, $titleText);
+    @media (max-width: 990px) {
+      @include text(1rem, bold, $titleText);
+    }
+    @media (max-width: 768px) {
+      @include text(0.8rem, bold, $titleText);
+    }
+    @media (max-width: 360px) {
+      @include text(0.6rem, bold, $titleText);
     }
 
-    @include button();
+    .buttonBlock {
+      width: 60vw;
+      display: grid;
+      place-items: center;
+      gap: 16px;
+      grid-template-columns:  repeat(2, auto);
+      @include button();
+    }
   }
 
 

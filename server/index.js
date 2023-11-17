@@ -13,7 +13,7 @@ app.post("/api/registration", (req, res) => {
         message: "You are registered",
     });
 
-        return
+    return
 });
 
 app.get("/api/ping", (req, res) => {
@@ -21,6 +21,20 @@ app.get("/api/ping", (req, res) => {
     res.send({
         status: "success",
         message: "Server is ready",
+    });
+});
+app.get("/api/request", (req, res) => {
+    res.statusCode = 200;
+    res.send({
+        status: "success",
+        message: {
+            title: "Это пример данных от сервера",
+            field_first: "В данном тестовом используется SASS/SCSS, Flex, Grid, TypeScript",
+            field_second: "Используются Redux/Redux Thunk/React Router v6/React Hooks",
+            field_third: "Развернуто на Git/Vercel",
+            field_fourth: "Верстка адаптивная",
+            field_fifth: "После появления сети сообщения отправляются по очереди"
+        },
     });
 });
 
